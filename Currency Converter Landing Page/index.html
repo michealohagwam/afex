@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="
+        default-src 'self';
+        script-src 'self' 'unsafe-inline';
+        style-src 'self' 'unsafe-inline';
+        img-src 'self' data: https://placehold.co;
+        connect-src 'self' https://your-backend-domain.com;
+    ">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <title>West African Currency Converter</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg width='64' height='64' viewBox='0 0 64 64' xmlns='http://www.w3.org/2000/svg'><circle cx='32' cy='32' r='28' fill='%23005B41'/><path d='M22 22 L42 42 M42 22 L22 42' stroke='%23fff' stroke-width='4' stroke-linecap='round'/><path d='M32 17 L32 47' stroke='%23fff' stroke-width='4' stroke-linecap='round'/><path d='M17 32 L47 32' stroke='%23fff' stroke-width='4' stroke-linecap='round'/><circle cx='32' cy='32' r='28' fill='none' stroke='%23004732' stroke-width='2'/></svg>">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">
+            <svg width="200" height="50" viewBox="0 0 300 80" xmlns="http://www.w3.org/2000/svg">
+                <g transform="translate(10, 10)">
+                    <circle cx="30" cy="30" r="25" fill="#005B41" />
+                    <path d="M20 20 L40 40 M40 20 L20 40" stroke="#fff" stroke-width="4" stroke-linecap="round" />
+                    <path d="M30 15 L30 45" stroke="#fff" stroke-width="4" stroke-linecap="round" />
+                    <path d="M15 30 L45 30" stroke="#fff" stroke-width="4" stroke-linecap="round" />
+                    <circle cx="30" cy="30" r="25" fill="none" stroke="#004732" stroke-width="2" />
+                </g>
+                <text x="80" y="30" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#005B41">WACC</text>
+                <text x="80" y="50" font-family="Arial, sans-serif" font-size="12" fill="#333">West African Currency Converter</text>
+                <text x="80" y="65" font-family="Arial, sans-serif" font-size="8" fill="#333">Convert West African currencies instantly with live rates.</text>
+            </svg>
+        </div>
+        <button class="hamburger" aria-label="Toggle Menu">☰</button>
+        <nav class="nav-menu">
+            <div class="nav-links">
+                <a href="#rates">Rates</a>
+                <a href="#calculator">Currency Calculator</a>
+                <a href="#news">News</a>
+                <div class="dropdown">
+                    <span class="dropdown-toggle">About Us</span>
+                    <div class="dropdown-content">
+                        <a href="#about-us">About Us</a>
+                        <a href="#why-choose-us">Why Choose Us</a>
+                        <a href="#partners">Our Partners</a>
+                        <a href="#testimonials">Testimonials</a>
+                        <a href="#social-proof">Trusted by Thousands</a>
+                    </div>
+                </div>
+                <a href="#blog">Blog</a>
+                <a href="#faq">FAQ</a>
+                <a href="#contact">Contact Us</a>
+            </div>
+            <div class="cta-buttons">
+                <a href="#login" class="login" data-modal="loginModal" aria-label="Open login modal">Login</a>
+                <a href="#register" class="register" data-modal="registerModal" aria-label="Open register modal">Register</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero">
+        <div class="hero-image-container">
+            <img src="images/hero-image.png" alt="Illustration of West African currency conversion with Naira, CFA, and Cedis">
+            <p>Track currencies on the go!</p>
+        </div>
+        <div class="hero-text">
+            <h1>West African Currency Converter</h1>
+            <p>Convert West African currencies instantly with live rates.</p>
+        </div>
+    </section>
+
+    <!-- Live Rates Section -->
+    <section id="rates" class="section">
+        <h2>Latest Exchange Rates</h2>
+        <div class="rates-container" id="rates-container" aria-live="polite">
+            <div class="rate-card">
+                <h3>Loading 1 USD → NGN Rate</h3>
+                <p class="loading">Loading...</p>
+            </div>
+            <div class="rate-card">
+                <h3>Loading 1 EUR → XOF Rate</h3>
+                <p class="loading">Loading...</p>
+            </div>
+            <div class="rate-card">
+                <h3>Loading 1 GBP → GHS Rate</h3>
+                <p class="loading">Loading...</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Currency Calculator Section -->
+    <section id="calculator" class="section">
+        <h2>Currency Calculator</h2>
+        <img src="images/calculator.png" alt="Currency Calculator">
+        <div class="calculator-container">
+            <form id="calculatorForm">
+                <input type="number" id="amount" placeholder="Enter amount" required min="0.01" max="1000000">
+                <select id="fromCurrency">
+                    <option value="USD">USD</option>
+                    <option value="EUR">EUR</option>
+                    <option value="GBP">GBP</option>
+                </select>
+                <select id="toCurrency">
+                    <option value="NGN">NGN</option>
+                    <option value="XOF">XOF</option>
+                    <option value="GHS">GHS</option>
+                </select>
+                <input type="hidden" name="_csrf" id="calcCsrfToken">
+                <button type="button">Convert</button>
+            </form>
+            <p id="result">Result: </p>
+            <div class="cta-buttons">
+                <a href="#login" class="login" data-modal="loginModal" aria-label="Open login modal to save conversions">Login to Send Money</a>
+                <a href="#register" class="register" data-modal="registerModal" aria-label="Open register modal">Register Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission, Vision, and Values Section -->
+    <section id="mission-vision" class="section">
+        <h2>Our Purpose</h2>
+        <div class="info-container">
+            <div class="info-card">
+                <h3>Mission</h3>
+                <p>To empower West Africans with seamless, transparent, and real-time currency conversion tools, delivering accurate exchange rates and financial insights for Naira, CFA, and Cedis to support informed financial decisions and foster economic growth.</p>
+            </div>
+            <div class="info-card">
+                <h3>Vision</h3>
+                <p>To be the trusted financial companion for West Africans, bridging local economies with global opportunities through innovative, user-friendly currency conversion and up-to-date market insights.</p>
+            </div>
+            <div class="info-card">
+                <h3>Core Values</h3>
+                <ul>
+                    <li><strong>Transparency</strong>: Clear, accurate, real-time data.</li>
+                    <li><strong>Accessibility</strong>: Simple, inclusive platform.</li>
+                    <li><strong>Reliability</strong>: Dependable services via secure tech.</li>
+                    <li><strong>Empowerment</strong>: Tools for financial independence.</li>
+                    <li><strong>Regional Focus</strong>: Tailored for West Africa.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Financial News Section -->
+    <section id="news" class="section">
+        <h2>Latest Financial News</h2>
+        <div class="news-container" id="news-container" aria-live="polite">
+            <div class="news-card">
+                <h3>Loading...</h3>
+                <p>Source: Loading... | Date: Loading...</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section id="why-choose-us" class="section">
+        <h2>Why Choose Us</h2>
+        <div class="info-card">
+            <img src="images/why-choose-us.png" alt="Why Choose Us">
+            <h3>Why Choose Us</h3>
+            <p>Our app offers real-time exchange rates, seamless currency conversion, and the latest financial news tailored for West African users. With a user-friendly interface and reliable data, we make managing your finances effortless.</p>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about-us" class="section">
+        <h2>About Us</h2>
+        <div class="info-card">
+            <img src="images/about-us.png" alt="About Us">
+            <h3>About Us</h3>
+            <p>We are dedicated to empowering West Africans with tools to navigate the global economy. Our mission is to provide accurate, accessible currency conversion and financial insights to support your financial decisions.</p>
+        </div>
+    </section>
+
+    <!-- Our Partners Section -->
+    <section id="partners" class="section">
+        <h2>Our Partners</h2>
+        <div class="partners-container">
+            <div class="partner-card" data-partner="Zenith Bank" data-url="https://www.zenithbank.com">
+                <img src="images/zenith-bank.png" alt="Zenith Bank">
+                <h3>Zenith Bank</h3>
+            </div>
+            <div class="partner-card" data-partner="Ecobank" data-url="https://www.ecobank.com">
+                <img src="images/ecobank.png" alt="Ecobank">
+                <h3>Ecobank</h3>
+            </div>
+            <div class="partner-card" data-partner="Flutterwave" data-url="https://www.flutterwave.com">
+                <img src="images/flutterwave.png" alt="Flutterwave">
+                <h3>Flutterwave</h3>
+            </div>
+            <div class="partner-card" data-partner="Mpesa" data-url="https://www.safaricom.co.ke/personal/m-pesa">
+                <img src="images/mpesa.png" alt="Mpesa">
+                <h3>Mpesa</h3>
+            </div>
+            <div class="partner-card" data-partner="Orange Money" data-url="https://www.orange.com/en/orange-money">
+                <img src="images/orange-money.png" alt="Orange Money">
+                <h3>Orange Money</h3>
+            </div>
+            <div class="partner-card" data-partner="MTN Mobile Money" data-url="https://www.mtn.com/momo">
+                <img src="images/mtn-mobile-money.png" alt="MTN Mobile Money">
+                <h3>MTN Mobile Money</h3>
+            </div>
+            <div class="partner-card" data-partner="Wave" data-url="https://www.wave.com">
+                <img src="images/wave.png" alt="Wave">
+                <h3>Wave</h3>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partner Modal -->
+    <div id="partnerModal" class="partner-modal">
+        <div class="partner-modal-content">
+            <p>Visit our partner's website, you will be leaving this current page.</p>
+            <button class="visit" id="visitButton">Visit</button>
+            <button class="stay">Stay</button>
+        </div>
+    </div>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="section">
+        <h2>Testimonials</h2>
+        <div class="info-card">
+            <img src="images/testimonials.png" alt="Testimonials">
+            <h3>Testimonials</h3>
+            <p>"This app has transformed how I track exchange rates!" – Aisha, Lagos<br>
+            "The news updates keep me informed on market trends." – Kwame, Accra</p>
+        </div>
+    </section>
+
+    <!-- Social Proof Section -->
+    <section id="social-proof" class="section">
+        <h2>Trusted by Thousands</h2>
+        <div class="social-proof-container">
+            <div class="social-proof-card">
+                <img src="images/social-proof1.png" alt="Users">
+                <h3>10,000+ Users</h3>
+                <p>Join our growing community of West Africans managing their finances with ease.</p>
+            </div>
+            <div class="social-proof-card">
+                <img src="images/social-proof2.png" alt="Award">
+                <h3>Award-Winning App</h3>
+                <p>Recognized for excellence in financial technology across the region.</p>
+            </div>
+            <div class="social-proof-card">
+                <img src="images/social-proof3.png" alt="Secure">
+                <h3>100% Secure</h3>
+                <p>Your data is protected with industry-leading security standards.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section id="blog" class="section">
+        <h2>Financial Insights</h2>
+        <div class="blog-container">
+            <div class="blog-card">
+                <img src="images/blog1.png" alt="Blog Post 1">
+                <h3>Tips for Managing Currency Exchange</h3>
+                <p>Learn how to optimize your currency conversions with our expert tips, tailored for West African markets.</p>
+                <a href="blog-post.html?postId=1">Read More</a>
+            </div>
+            <div class="blog-card">
+                <img src="images/blog2.png" alt="Blog Post 2">
+                <h3>Understanding Market Trends in West Africa</h3>
+                <p>Stay ahead with insights into economic trends affecting NGN, XOF, and GHS.</p>
+                <a href="blog-post.html?postId=2">Read More</a>
+            </div>
+            <div class="blog-card">
+                <img src="images/blog3.png" alt="Blog Post 3">
+                <h3>How to Save on International Transfers</h3>
+                <p>Discover strategies to reduce fees and maximize value when sending money abroad.</p>
+                <a href="blog-post.html?postId=3">Read More</a>
+            </div>
+            <div class="blog-card">
+                <img src="images/blog4.png" alt="Blog Post 4">
+                <h3>Navigating Forex Markets in 2025</h3>
+                <p>Get expert advice on trading currencies in West Africa’s dynamic markets.</p>
+                <a href="blog-post.html?postId=4">Read More</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="section">
+        <h2>Frequently Asked Questions</h2>
+        <img src="images/faq.png" alt="FAQ">
+        <div class="faq-container">
+            <div class="faq-item">
+                <input type="checkbox" id="faq1">
+                <label for="faq1">How are exchange rates updated?</label>
+                <div class="faq-content">
+                    <p>Our rates are sourced from reliable APIs and updated regularly to ensure you get the most accurate data for your conversions.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <input type="checkbox" id="faq2">
+                <label for="faq2">Is my data secure?</label>
+                <div class="faq-content">
+                    <p>Yes, we use secure APIs and follow best practices to protect your privacy and ensure safe transactions.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <input type="checkbox" id="faq3">
+                <label for="faq3">Can I use the app offline?</label>
+                <div class="faq-content">
+                    <p>Cached rates and news are available offline, but live updates require an internet connection.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Us Section -->
+    <section id="contact" class="section">
+        <h2>Contact Us</h2>
+        <img src="images/contact-us.png" alt="Contact Us">
+        <div class="contact-container">
+            <form id="contactForm">
+                <input type="text" name="name" placeholder="Name" required>
+                <input type="email" name="email" placeholder="Email" required>
+                <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+                <input type="hidden" name="_csrf" id="contactCsrfToken">
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Download Our App Section -->
+    <section id="download" class="section">
+        <h2>Download Our App</h2>
+        <div class="download-container">
+            <div class="download-card">
+                <img src="https://placehold.co/100x100/005B41/fff/png?text=Google+Play" alt="Google Play Store">
+                <h3>Get it on Google Play</h3>
+                <a href="https://play.google.com/store" target="_blank">Download</a>
+            </div>
+            <div class="download-card">
+                <img src="https://placehold.co/100x100/005B41/fff/png?text=App+Store" alt="Apple App Store">
+                <h3>Download on the App Store</h3>
+                <a href="https://www.apple.com/app-store" target="_blank">Download</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-menu">
+            <a href="#rates">Rates</a>
+            <a href="#calculator">Currency Calculator</a>
+            <a href="#news">News</a>
+            <div class="dropdown">
+                <span class="dropdown-toggle">About Us</span>
+                <div class="dropdown-content">
+                    <a href="#about-us">About Us</a>
+                    <a href="#why-choose-us">Why Choose Us</a>
+                    <a href="#partners">Our Partners</a>
+                    <a href="#testimonials">Testimonials</a>
+                    <a href="#social-proof">Trusted by Thousands</a>
+                </div>
+            </div>
+            <a href="#blog">Blog</a>
+            <a href="#faq">FAQ</a>
+            <a href="#contact">Contact Us</a>
+        </div>
+        <p>© 2025 West African Currency Converter. All rights reserved.</p>
+    </footer>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <h2>Login</h2>
+            <form id="loginForm">
+                <label for="loginEmail">Email</label>
+                <input type="email" id="loginEmail" required>
+                <label for="loginPassword">Password</label>
+                <input type="password" id="loginPassword" required>
+                <input type="hidden" name="_csrf" id="loginCsrfToken">
+                <button type="submit">Login</button>
+                <button type="button" class="close-modal">Close</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <h2>Register</h2>
+            <form id="registerForm">
+                <label for="registerEmail">Email</label>
+                <input type="email" id="registerEmail" required>
+                <label for="registerPassword">Password</label>
+                <input type="password" id="registerPassword" required>
+                <input type="hidden" name="_csrf" id="registerCsrfToken">
+                <button type="submit">Register</button>
+                <button type="button" class="close-modal">Close</button>
+            </form>
+            <p>New to the app? Register now!</p>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
